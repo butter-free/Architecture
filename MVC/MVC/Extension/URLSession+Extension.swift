@@ -40,30 +40,15 @@ extension URLSession {
   
   func requestModel<T: Decodable>(urlString: String, completion: @escaping (_ data: T?, _ response: URLResponse?, _ error: Error?) -> Void) {
     
-    guard let url = URL(string: urlString) else { return }
-    
-    URLSession.shared.dataTask(with: url) { (data, res, error) in
-      DispatchQueue.main.async {
-        
-        guard let httpRes = res as? HTTPURLResponse else { return }
-        let statusCode = httpRes.statusCode
-        
-        guard statusCode == 200 else {
-          print("[Response] \(statusCode)")
-          return
-        }
-        
-        if let error = error {
-          completion(nil, httpRes, error)
-          return
-        }
-        
-        guard let data = data else { return }
-        guard let modelData = ModelDecoder<T>(data: data).parse else { return }
-        
-        completion(modelData, httpRes, nil)
+    request(urlString: urlString) { (data, res, error) in
+      
+      if let error = error {
+        completion(nil, res, error)
+        return
       }
-    }.resume()
-    
+      
+      guard let modelData = ModelDecoder<T>(data: data!).parse else { return }
+      completion(modelData, res, nil)
+    }
   }
 }
