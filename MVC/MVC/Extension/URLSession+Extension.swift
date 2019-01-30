@@ -18,19 +18,11 @@ extension URLSession {
       DispatchQueue.main.async {
         
         guard let httpRes = res as? HTTPURLResponse else { return }
-        let statusCode = httpRes.statusCode
-        
-        guard statusCode == 200 else {
-          print("[Response] \(statusCode)")
-          return
-        }
         
         if let error = error {
           completion(nil, httpRes, error)
           return
         }
-        
-        guard let data = data else { return }
         
         completion(data, httpRes, nil)
       }

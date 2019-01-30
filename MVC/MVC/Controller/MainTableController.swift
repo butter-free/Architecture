@@ -14,8 +14,10 @@ class MainTableController: UITableViewController {
   enum Height {
     static let cell: CGFloat = 84
   }
+  let activityView = UIActivityIndicatorView(style: .gray)
   
   let searchController = UISearchController(searchResultsController: nil)
+  var safariController: SFSafariViewController?
   
   lazy var searchBar: UISearchBar = {
     let search = UISearchBar()
@@ -42,6 +44,18 @@ class MainTableController: UITableViewController {
     
     navigationItem.searchController = searchController
     navigationItem.hidesSearchBarWhenScrolling = false
+  }
+  
+  fileprivate func startActivity() {
+    activityView.center = CGPoint(x: view.center.x, y: view.center.y - 84)
+    view.addSubview(activityView)
+  
+    activityView.startAnimating()
+  }
+  
+  fileprivate func stopActivity() {
+    activityView.stopAnimating()
+    activityView.removeFromSuperview()
   }
   
   // MARK:- UITableView Datasource
@@ -89,8 +103,17 @@ class MainTableController: UITableViewController {
     
     guard let htmlUrl = searchData?.items?[index].owner?.htmlUrl else { return }
     guard let url = URL(string: htmlUrl) else { return }
-    let safariController = SFSafariViewController(url: url)
-    searchController.present(safariController, animated: true, completion: nil)
+    safariController = SFSafariViewController(url: url)
+    
+    guard let safari = safariController else { return }
+    safari.delegate = self
+    searchController.present(safari, animated: true, completion: nil)
+  }
+}
+
+extension MainTableController: SFSafariViewControllerDelegate {
+  func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+    safariController = nil
   }
 }
 
@@ -105,8 +128,11 @@ extension MainTableController: UISearchBarDelegate {
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     guard let searchText = searchBar.text else { return }
+    startActivity()
     
     Request.search(searchText) { (data, error) in
+      self.stopActivity()
+      
       if let error = error {
         print("searchError => \(error)")
         return
