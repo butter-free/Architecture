@@ -85,8 +85,8 @@ class MainTableController: UITableViewController {
     
     tableView.deselectRow(at: indexPath, animated: false)
     
-    guard let htmlUrl = searchData?.items?[index].owner?.htmlUrl else { return }
-    guard let url = URL(string: htmlUrl) else { return }
+    guard let stringUrl = searchData?.items?[index].htmlUrl else { return }
+    guard let url = URL(string: stringUrl) else { return }
     safariController = SFSafariViewController(url: url)
     
     guard let safari = safariController else { return }

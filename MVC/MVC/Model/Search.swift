@@ -29,6 +29,7 @@ struct Item: Codable {
   var star: Int?
   var language: String?
   var updatedDate: String?
+  var htmlUrl: String?
   
   enum CodingKeys: String, CodingKey {
     case fullName = "full_name"
@@ -36,15 +37,14 @@ struct Item: Codable {
     case star = "stargazers_count"
     case language
     case updatedDate = "updated_at"
+    case htmlUrl = "html_url"
   }
 }
 
 struct Owner: Codable {
   var avatarUrl: String?
-  var htmlUrl: String?
   
   enum CodingKeys: String, CodingKey {
     case avatarUrl = "avatar_url"
-    case htmlUrl = "html_url"
   }
 }
