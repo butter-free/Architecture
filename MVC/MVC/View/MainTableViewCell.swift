@@ -22,7 +22,7 @@ class MainTableViewCell: UITableViewCell {
     let stackView = UIStackView()
     stackView.axis = .vertical
     stackView.distribution = .fillEqually
-    stackView.spacing = 8
+    stackView.spacing = 4
     return stackView
   }()
   
@@ -35,7 +35,6 @@ class MainTableViewCell: UITableViewCell {
   
   lazy var languageLabel: UILabel = {
     let label = UILabel()
-    label.text = "Swift"
     label.textColor = .black
     label.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
     return label
@@ -51,7 +50,6 @@ class MainTableViewCell: UITableViewCell {
   
   lazy var starsLabel: UILabel = {
     let label = UILabel()
-    label.text = "Star : "
     label.textColor = .black
     label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
     return label
@@ -59,12 +57,13 @@ class MainTableViewCell: UITableViewCell {
   
   lazy var updateDateLabel: UILabel = {
     let label = UILabel()
-    label.text = "update : "
     label.textColor = .black
     label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
     label.textAlignment = .right
     return label
   }()
+  
+  lazy var labelList = [repoTitleLabel, languageLabel, starsLabel, updateDateLabel]
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -73,12 +72,12 @@ class MainTableViewCell: UITableViewCell {
     addSubview(verticalStackView)
     addSubview(horizonStackView)
     
-    [repoTitleLabel, languageLabel].forEach { label in
-      verticalStackView.addArrangedSubview(label)
-    }
-    
-    [starsLabel, updateDateLabel].forEach { label in
-      horizonStackView.addArrangedSubview(label)
+    labelList.enumerated().forEach { (index, label) in
+      if index < labelList.count / 2 {
+        verticalStackView.addArrangedSubview(label)
+      } else {
+        horizonStackView.addArrangedSubview(label)
+      }
     }
     
     avatarView.anchor(top: topAnchor,
@@ -92,14 +91,13 @@ class MainTableViewCell: UITableViewCell {
                      leading: avatarView.trailingAnchor,
                      bottom: nil,
                      trailing: trailingAnchor,
-                     padding: .init(top: 16, left: 8, bottom: 0, right: 8),
-                     size: .init(width: 0, height: 30))
+                     padding: .init(top: 12, left: 8, bottom: 0, right: 8))
     
     horizonStackView.anchor(top: verticalStackView.bottomAnchor,
                             leading: avatarView.trailingAnchor,
                             bottom: bottomAnchor,
                             trailing: safeAreaLayoutGuide.trailingAnchor,
-                            padding: .init(top: 8, left: 8, bottom: 16, right: 16))
+                            padding: .init(top: 8, left: 8, bottom: 12, right: 12))
     
   }
   

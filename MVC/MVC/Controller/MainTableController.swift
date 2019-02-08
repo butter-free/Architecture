@@ -13,7 +13,9 @@ class MainTableController: UITableViewController {
   
   enum Height {
     static let cell: CGFloat = 84
+    static let navigationBar: CGFloat = 84
   }
+  
   let activityView = UIActivityIndicatorView(style: .gray)
   
   let searchController = UISearchController(searchResultsController: nil)
@@ -29,9 +31,7 @@ class MainTableController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     definesPresentationContext = true
-    
     setupSearchBar()
   }
   
@@ -46,42 +46,26 @@ class MainTableController: UITableViewController {
     navigationItem.hidesSearchBarWhenScrolling = false
   }
   
-  fileprivate func startActivity() {
-    activityView.center = CGPoint(x: view.center.x, y: view.center.y - 84)
-    view.addSubview(activityView)
-  
-    activityView.startAnimating()
-  }
-  
-  fileprivate func stopActivity() {
-    activityView.stopAnimating()
-    activityView.removeFromSuperview()
-  }
-  
   // MARK:- UITableView Datasource
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return searchData?.items?.count ?? 0
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
     let index = indexPath.row
     let item = searchData?.items?[index]
     
     let cell = MainTableViewCell(style: .default, reuseIdentifier: nil)
     
     if let imageUrl = item?.owner?.avatarUrl {
-      
       URLSession.shared.request(urlString: imageUrl) { (data, res, error) in
-        
         guard let data = data else { return }
-        
         cell.avatarView.image = UIImage(data: data)?.withRenderingMode(.alwaysOriginal)
       }
     }
     
     cell.repoTitleLabel.text = item?.fullName
-    cell.languageLabel.text = item?.language
+    cell.languageLabel.text = "\(item?.language ?? "Not Found Language")"
     cell.starsLabel.text = "\(String(item?.star?.abbreviated ?? "0")) Stars"
     
     if let updatedDate = item?.updatedDate {
@@ -118,7 +102,6 @@ extension MainTableController: SFSafariViewControllerDelegate {
 }
 
 extension MainTableController: UISearchBarDelegate {
-  
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     if searchText.isEmpty {
       searchData = nil
@@ -128,13 +111,19 @@ extension MainTableController: UISearchBarDelegate {
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     guard let searchText = searchBar.text else { return }
+    requestSearch(searchText, tryErrorOccurs: 3)
+  }
+  
+  fileprivate func requestSearch(_ searchText: String, tryErrorOccurs: Int) {
     startActivity()
-    
     Request.search(searchText) { (data, error) in
       self.stopActivity()
       
       if let error = error {
         print("searchError => \(error)")
+        if tryErrorOccurs > 0 {
+            self.requestSearch(searchText, tryErrorOccurs: tryErrorOccurs - 1)
+        }
         return
       }
       
@@ -143,5 +132,16 @@ extension MainTableController: UISearchBarDelegate {
       self.searchData = data
       self.tableView.reloadData()
     }
+  }
+  
+  fileprivate func startActivity() {
+    activityView.center = CGPoint(x: view.center.x, y: view.center.y - Height.navigationBar)
+    view.addSubview(activityView)
+    activityView.startAnimating()
+  }
+  
+  fileprivate func stopActivity() {
+    activityView.stopAnimating()
+    activityView.removeFromSuperview()
   }
 }
