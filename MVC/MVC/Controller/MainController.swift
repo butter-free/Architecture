@@ -14,7 +14,6 @@ import RxCocoa
 class MainController: UITableViewController {
   
   enum Height {
-    static let cell: CGFloat = 84
     static let navigationBar: CGFloat = 84
   }
   
@@ -40,18 +39,11 @@ class MainController: UITableViewController {
           let index = indexPath.row
           
           self.tableView.deselectRow(at: indexPath, animated: false)
-          
           guard let stringUrl = self.searchList?[index].htmlUrl else { return }
-          guard let url = URL(string: stringUrl) else { return }
-          self.safariController = SFSafariViewController(url: url)
-          
-          guard let safari = self.safariController else { return }
-          safari.delegate = self
-          self.searchController.present(safari, animated: true, completion: nil)
+          self.openSafariView(with: stringUrl)
         }
       )
       .disposed(by: disposeBag)
-   
   }
   
   fileprivate func setupSearchBar() {
@@ -117,6 +109,15 @@ class MainController: UITableViewController {
           self.tableView.reloadData()
         }.disposed(by: self.disposeBag)
     }
+  }
+  
+  fileprivate func openSafariView(with url: String) {
+    guard let url = URL(string: url) else { return }
+    self.safariController = SFSafariViewController(url: url)
+    
+    guard let safari = self.safariController else { return }
+    safari.delegate = self
+    self.searchController.present(safari, animated: true, completion: nil)
   }
   
   fileprivate func startActivity() {
