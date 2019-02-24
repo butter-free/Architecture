@@ -9,23 +9,23 @@
 import Foundation
 
 extension Int {
-  var abbreviated: String {
-    
-    guard self >= 1000 else { return "\(self)" }
-    
-    let suffixList = ["", "k", "m", "b", "t", "p", "e"]
-    var index: Int = 0
-    var value = Double(self)
-    
-    while (value / 1000) >= 1 {
-      value = value / 1000
-      index += 1
-    }
-    
-    let formatter = NumberFormatter()
-    formatter.maximumFractionDigits = 1
-    let formatString = formatter.string(for: value)
-    
-    return String(format: "%@%@", formatString ?? "0", suffixList[index])
-  }
+	var abbreviated: String {
+		
+		guard self >= 1000 else { return "\(self)" }
+		
+		let suffixList = ["", "k", "m", "b", "t", "p", "e"]
+		var index: Int = 0
+		var value = Double(self)
+		
+		while (value / 1000) >= 1 {
+			value = value / 1000
+			index += 1
+		}
+		
+		let formatter = NumberFormatter()
+		formatter.maximumFractionDigits = 1
+		let formatString = formatter.string(for: value)
+		
+		return String(format: "%@%@", formatString ?? "0", suffixList[index])
+	}
 }

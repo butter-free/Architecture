@@ -9,11 +9,11 @@
 import Foundation
 
 struct ModelDecoder<T> {
-  let parse: T?
+	let parse: T?
 }
 
 extension ModelDecoder where T: Decodable {
-  init(data: Data) {
-    self.parse = try? JSONDecoder().decode(T.self, from: data)
-  }
+	init(data: Data) {
+		self.parse = try? JSONDecoder().decode(T.self, from: data)
+	}
 }
