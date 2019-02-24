@@ -104,4 +104,24 @@ class MainTableViewCell: UITableViewCell {
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+	
+	func setupCell(_ viewModel: SearchViewModel, _ index: Int) {
+		
+		let item = viewModel.getItem(at: index)
+		
+		if let imageUrl = item?.owner?.avatarUrl {
+			URLSession.shared.request(urlString: imageUrl) { [weak self] (data, res, error) in
+				guard let data = data else { return }
+				self?.avatarView.image = UIImage(data: data)?.withRenderingMode(.alwaysOriginal)
+			}
+		}
+		
+		repoTitleLabel.text = item?.fullName
+		languageLabel.text = "\(item?.language ?? "Not Found Language")"
+		starsLabel.text = "\(String(item?.star?.abbreviated ?? "0")) Stars"
+		
+		if let updatedDate = item?.updatedDate {
+			updateDateLabel.text = "updated \(updatedDate.dateFormat)"
+		}
+	}
 }

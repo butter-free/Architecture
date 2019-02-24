@@ -21,13 +21,7 @@ class MainTableController: UITableViewController {
   let searchController = UISearchController(searchResultsController: nil)
   var safariController: SFSafariViewController?
   
-  lazy var searchBar: UISearchBar = {
-    let search = UISearchBar()
-    search.barStyle = .default
-    return search
-  }()
-  
-  var searchData: Search?
+	var searchViewModel: SearchViewModel = SearchViewModel()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -48,30 +42,13 @@ class MainTableController: UITableViewController {
   
   // MARK:- UITableView Datasource
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return searchData?.items?.count ?? 0
+    return searchViewModel.numberOfItems()
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let index = indexPath.row
-    let item = searchData?.items?[index]
-    
     let cell = MainTableViewCell(style: .default, reuseIdentifier: nil)
-    
-    if let imageUrl = item?.owner?.avatarUrl {
-      URLSession.shared.request(urlString: imageUrl) { (data, res, error) in
-        guard let data = data else { return }
-        cell.avatarView.image = UIImage(data: data)?.withRenderingMode(.alwaysOriginal)
-      }
-    }
-    
-    cell.repoTitleLabel.text = item?.fullName
-    cell.languageLabel.text = "\(item?.language ?? "Not Found Language")"
-    cell.starsLabel.text = "\(String(item?.star?.abbreviated ?? "0")) Stars"
-    
-    if let updatedDate = item?.updatedDate {
-      cell.updateDateLabel.text = "updated \(updatedDate.dateFormat)"
-    }
-    
+    cell.setupCell(searchViewModel, index)
     return cell
   }
   
@@ -85,7 +62,7 @@ class MainTableController: UITableViewController {
     
     tableView.deselectRow(at: indexPath, animated: false)
     
-    guard let stringUrl = searchData?.items?[index].htmlUrl else { return }
+    guard let stringUrl = searchViewModel.getItem(at: index)?.htmlUrl else { return }
     guard let url = URL(string: stringUrl) else { return }
     safariController = SFSafariViewController(url: url)
     
@@ -104,7 +81,7 @@ extension MainTableController: SFSafariViewControllerDelegate {
 extension MainTableController: UISearchBarDelegate {
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     if searchText.isEmpty {
-      searchData = nil
+      searchViewModel.setSearchModel(nil)
       tableView.reloadData()
     }
   }
@@ -128,8 +105,7 @@ extension MainTableController: UISearchBarDelegate {
       }
       
       guard let data = data else { return }
-      
-      self.searchData = data
+      self.searchViewModel.setSearchModel(data)
       self.tableView.reloadData()
     }
   }
