@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		728714B02222DA3C00062EFF /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728714AF2222DA3C00062EFF /* SearchViewModel.swift */; };
 		72CF38A2220DC512000A184C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72CF38A1220DC512000A184C /* AppDelegate.swift */; };
 		72CF38A7220DC512000A184C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72CF38A5220DC512000A184C /* Main.storyboard */; };
 		72CF38A9220DC513000A184C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72CF38A8220DC513000A184C /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		728714AF2222DA3C00062EFF /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		72CF389E220DC512000A184C /* MVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72CF38A1220DC512000A184C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		72CF38A6220DC512000A184C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -113,7 +115,6 @@
 		72CF38A0220DC512000A184C /* MVVM */ = {
 			isa = PBXGroup;
 			children = (
-				72CF38CF22106684000A184C /* Model */,
 				72CF38E822106708000A184C /* View */,
 				72CF38F822106769000A184C /* ViewModel */,
 				72CF38EF22106709000A184C /* Controller */,
@@ -193,6 +194,8 @@
 		72CF38F822106769000A184C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				72CF38CF22106684000A184C /* Model */,
+				728714AF2222DA3C00062EFF /* SearchViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				728714B02222DA3C00062EFF /* SearchViewModel.swift in Sources */,
 				72CF38D3221066A3000A184C /* Search.swift in Sources */,
 				72CF38F722106709000A184C /* MainTableController.swift in Sources */,
 				72CF38F422106709000A184C /* UIView+Extension.swift in Sources */,
