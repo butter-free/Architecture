@@ -93,20 +93,20 @@ extension MainTableController: UISearchBarDelegate {
 	
 	fileprivate func requestSearch(_ searchText: String, tryErrorOccurs: Int) {
 		startActivity()
-		Request.search(searchText) { (data, error) in
-			self.stopActivity()
+		Request.search(searchText) { [weak self] (data, error) in
+			self?.stopActivity()
 			
 			if let error = error {
 				print("searchError => \(error)")
 				if tryErrorOccurs > 0 {
-					self.requestSearch(searchText, tryErrorOccurs: tryErrorOccurs - 1)
+					self?.requestSearch(searchText, tryErrorOccurs: tryErrorOccurs - 1)
 				}
 				return
 			}
 			
 			guard let data = data else { return }
-			self.searchViewModel.setSearchModel(data)
-			self.tableView.reloadData()
+			self?.searchViewModel.setSearchModel(data)
+			self?.tableView.reloadData()
 		}
 	}
 	
