@@ -105,9 +105,7 @@ class MainTableViewCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	func setupCell(_ viewModel: SearchViewModel, _ index: Int) {
-		
-		let item = viewModel.getItem(at: index)
+	func setupCell(_ item: Item?) {
 		
 		if let imageUrl = item?.owner?.avatarUrl {
 			URLSession.shared.request(urlString: imageUrl) { [weak self] (data, res, error) in

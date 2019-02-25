@@ -22,4 +22,8 @@ struct SearchViewModel {
 	func getItem(at index: Int) -> Item? {
 		return searchViewModel?.items?[index]
 	}
+	
+	func getItems() -> [Item]? {
+		return searchViewModel?.items
+	}
 }
