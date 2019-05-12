@@ -1,6 +1,6 @@
 //
 //  UIView+Extension.swift
-//  MVC
+//  MVVM
 //
 //  Created by hy_sean on 16/01/2019.
 //  Copyright © 2019 hy_sean. All rights reserved.

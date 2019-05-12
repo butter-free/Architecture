@@ -1,6 +1,6 @@
 //
-//  ViewController.swift
-//  MVC
+//  MainTableController.swift
+//  MVVM
 //
 //  Created by hy_sean on 11/01/2019.
 //  Copyright © 2019 hy_sean. All rights reserved.
