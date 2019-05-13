@@ -45,9 +45,10 @@ class MainTableController: UITableViewController {
 		
 		searchController.searchBar.rx.text
 			.throttle(0.3, scheduler: MainScheduler.instance)
+			.filter { return $0?.isEmpty == false }
 			.subscribe(
 				onNext: { [weak self] query in
-					guard let query = query else { return }
+					guard let query = query else { return }					
 					self?.requestSearch(query)
 				}
 			)
