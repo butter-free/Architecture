@@ -30,7 +30,12 @@ class ProfileViewModel: ViewModelType {
 		
 		userID.bind { [weak self] id in
 			
-			guard let `self` = self, !id.isEmpty else { return }
+			guard let `self` = self else { return }
+			
+			if id.isEmpty {
+				self.avatarURL.value = ""
+				return
+			}
 			
 			self.networkService.request(
 				url: "https://api.github.com/users/\(id)/repos",
