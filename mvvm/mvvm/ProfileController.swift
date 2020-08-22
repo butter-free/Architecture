@@ -192,14 +192,15 @@ extension ProfileController: UITextFieldDelegate {
 	
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		
-		guard let text = textField.text else { return false }
+		guard let text = textField.text, !text.isEmpty else { return false }
 		
-		return !text.isEmpty
+		view.endEditing(true)
+		
+		return true
 	}
 	
 	func textFieldDidEndEditing(_ textField: UITextField) {
-		print(textField.text)
-		
+
 		guard let userID = textField.text else { return }
 		
 		if let _ = profileImageView.image {
