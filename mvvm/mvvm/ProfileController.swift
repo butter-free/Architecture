@@ -80,17 +80,8 @@ class ProfileController: UIViewController {
 	
 	var isSetupConfirmImage: Bool = false {
 		willSet {
-			
-			var image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
-			
-			if newValue {
-				confirmImageView.tintColor = .systemBlue
-			} else {
-				image = UIImage(systemName: "multiply")?.withRenderingMode(.alwaysTemplate)
-				confirmImageView.tintColor = .red
-			}
-			
-			confirmImageView.image = image
+			confirmImageView.image = UIImage(systemName: newValue ? "checkmark.circle.fill" : "multiply")?.withRenderingMode(.alwaysTemplate)
+			confirmImageView.tintColor = newValue ? .systemBlue : .red
 		}
 	}
 	
@@ -165,22 +156,21 @@ class ProfileController: UIViewController {
 		viewModel.avatarURL.bind { [weak self] avatarURL in
 			DispatchQueue.main.async {
 				
-				let isEmpty = !avatarURL.isEmpty
+				let isSuccessRetrieveURL = !avatarURL.isEmpty
 				
-				if isEmpty {
+				if isSuccessRetrieveURL {
 					self?.profileImageView.setupImage(from: avatarURL)
 				} else {
 					self?.profileImageView.image = nil
 				}
 				
-				self?.submitButton.isEnabled = isEmpty
-				self?.isSetupConfirmImage = isEmpty
+				self?.submitButton.isEnabled = isSuccessRetrieveURL
+				self?.isSetupConfirmImage = isSuccessRetrieveURL
 			}
 		}
 	}
 	
 	@objc func didTapSubmitButton() {
-		print("click")
 		let repoListController = RepoListController(
 			viewModel: RepoListViewModel(userID: viewModel.userID.value, repoList: viewModel.repoList)
 		)
