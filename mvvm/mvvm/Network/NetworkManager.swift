@@ -9,7 +9,7 @@
 import Foundation
 
 protocol NetworkService {
-	func request<T>(url: String, model: T.Type, result: @escaping (Result<T, Error>) -> Void) where T : Decodable
+	func request<T>(url: String, result: @escaping (Result<T, Error>) -> Void) where T : Decodable
 }
 
 enum NetworkError: Error {
@@ -20,7 +20,7 @@ class NetworkManager: NetworkService {
 	
 	static let shared: NetworkManager = NetworkManager()
 	
-	func request<T>(url: String, model: T.Type, result: @escaping (Result<T, Error>) -> Void) where T : Decodable {
+	func request<T>(url: String, result: @escaping (Result<T, Error>) -> Void) where T : Decodable {
 		
 		guard let url = URL(string: url) else { return }
 		
@@ -39,7 +39,7 @@ class NetworkManager: NetworkService {
 			}
 			
 			do {
-				let data = try JSONDecoder().decode(model.self, from: data)
+				let data = try JSONDecoder().decode(T.self, from: data)
 				
 				result(.success(data))
 				return

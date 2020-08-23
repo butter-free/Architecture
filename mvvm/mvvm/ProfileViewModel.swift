@@ -38,9 +38,8 @@ class ProfileViewModel: ViewModelType {
 			}
 			
 			self.networkService.request(
-				url: "https://api.github.com/users/\(id)/repos",
-				model: [Repo].self
-			) { result in
+				url: "https://api.github.com/users/\(id)/repos"
+			) { (result: Result<[Repo], Error>) in
 				switch result {
 				case let .success(data):
 					// fork한 repo 제외
