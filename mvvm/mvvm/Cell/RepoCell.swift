@@ -50,7 +50,6 @@ class RepoCell: UITableViewCell {
 	
 	lazy var hashTagImageView: UIImageView = {
 		let imageView = UIImageView()
-		imageView.image = UIImage(systemName: "number")?.withRenderingMode(.alwaysTemplate)
 		imageView.tintColor = UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1.0)
 		return imageView
 	}()
@@ -71,6 +70,8 @@ class RepoCell: UITableViewCell {
 		titleLabel.text = ""
 		descriptionLabel.text = ""
 		languageLabel.text = ""
+		
+		hashTagImageView.image = nil
 	}
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -86,22 +87,22 @@ class RepoCell: UITableViewCell {
 	func configureUI() {
 		self.accessoryType = .disclosureIndicator
 		
-		self.layer.cornerRadius = 16
-		self.layer.masksToBounds = true
-		
-		self.addSubview(stackView)
+		stackView.addArrangedSubview(titleLabel)
+		stackView.addArrangedSubview(descriptionLabel)
 		
 		horizontalStackView.addArrangedSubview(hashTagImageView)
 		horizontalStackView.addArrangedSubview(languageLabel)
-		
-		stackView.addArrangedSubview(titleLabel)
-		stackView.addArrangedSubview(descriptionLabel)
 		stackView.addArrangedSubview(horizontalStackView)
 		
+		self.addSubview(stackView)
+		
 		NSLayoutConstraint.activate([
+			
+			titleLabel.heightAnchor.constraint(equalToConstant: titleLabel.font.lineHeight),
+			
 			stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
 			stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-			stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+			stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -48),
 			stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
 			
 			hashTagImageView.widthAnchor.constraint(equalTo: hashTagImageView.heightAnchor)
@@ -113,15 +114,11 @@ class RepoCell: UITableViewCell {
 		
 		if let desc = repo.description {
 			descriptionLabel.text = desc
-		} else {
-			stackView.removeArrangedSubview(descriptionLabel)
 		}
 		
 		if let language = repo.language {
 			languageLabel.text = language
-		} else {
-			hashTagImageView.image = nil
-			stackView.removeArrangedSubview(horizontalStackView)
+			hashTagImageView.image = UIImage(systemName: "number")?.withRenderingMode(.alwaysTemplate)
 		}
 	}
 }
