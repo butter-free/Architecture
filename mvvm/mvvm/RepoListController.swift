@@ -66,23 +66,7 @@ extension RepoListController: UITableViewDataSource, UITableViewDelegate {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: RepoCell.identifier, for: indexPath) as! RepoCell
-		let repo = viewModel.repoList[indexPath.row]
-		
-		cell.titleLabel.text = repo.name
-		
-		if let desc = repo.description {
-			cell.descriptionLabel.text = desc
-		} else {
-			cell.stackView.removeArrangedSubview(cell.descriptionLabel)
-		}
-		
-		if let language = repo.language {
-			cell.languageLabel.text = language
-		} else {
-			cell.hashTagImageView.image = nil
-			cell.stackView.removeArrangedSubview(cell.horizontalStackView)
-		}
-		
+		cell.configure(repo: viewModel.repoList[indexPath.row])
 		return cell
 	}
 	

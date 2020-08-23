@@ -107,4 +107,21 @@ class RepoCell: UITableViewCell {
 			hashTagImageView.widthAnchor.constraint(equalTo: hashTagImageView.heightAnchor)
 		])
 	}
+	
+	func configure(repo: Repo) {
+		titleLabel.text = repo.name
+		
+		if let desc = repo.description {
+			descriptionLabel.text = desc
+		} else {
+			stackView.removeArrangedSubview(descriptionLabel)
+		}
+		
+		if let language = repo.language {
+			languageLabel.text = language
+		} else {
+			hashTagImageView.image = nil
+			stackView.removeArrangedSubview(horizontalStackView)
+		}
+	}
 }
