@@ -38,11 +38,12 @@ class RepoListController: UIViewController {
 		super.viewDidLoad()
 		
 		configureUI()
-		bindViewModel()
 	}
 	
 	func configureUI() {
 		view.backgroundColor = .white
+		
+		navigationItem.title = "\(viewModel.userID)'s repositories"
 		
 		view.addSubview(tableView)
 		
@@ -52,10 +53,6 @@ class RepoListController: UIViewController {
 			tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
 		])
-	}
-	
-	func bindViewModel() {
-		navigationItem.title = "\(viewModel.userID)'s repositories"
 	}
 }
 
@@ -71,18 +68,7 @@ extension RepoListController: UITableViewDataSource, UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		
-		let repo = viewModel.repoList[indexPath.row]
-		
-		if let _ = repo.description, let _ = repo.language {
-			return 120
-		}
-		
-		if repo.description != nil || repo.language != nil {
-			return 90
-		} else {
-			return 60
-		}
+		viewModel.tableViewHeightForRowAt(indexPath: indexPath)
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

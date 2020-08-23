@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class RepoListViewModel: ViewModelType {
 	
@@ -20,5 +21,19 @@ class RepoListViewModel: ViewModelType {
 	
 	func binding() {
 		
+	}
+	
+	func tableViewHeightForRowAt(indexPath: IndexPath) -> CGFloat {
+		let repo = repoList[indexPath.row]
+		
+		if let _ = repo.description, let _ = repo.language {
+			return 120
+		}
+		
+		if repo.description != nil || repo.language != nil {
+			return 90
+		} else {
+			return 60
+		}
 	}
 }
