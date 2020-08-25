@@ -22,6 +22,7 @@
 		725316B224F01DEF003789A5 /* RepoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725316B124F01DEF003789A5 /* RepoListController.swift */; };
 		725316B424F01F31003789A5 /* RepoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725316B324F01F31003789A5 /* RepoListViewModel.swift */; };
 		7254490E24F16C7E00DAF07F /* RepoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7254490D24F16C7E00DAF07F /* RepoCell.swift */; };
+		7254491124F5519800DAF07F /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7254491024F5519800DAF07F /* ViewModelType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		725316B124F01DEF003789A5 /* RepoListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListController.swift; sourceTree = "<group>"; };
 		725316B324F01F31003789A5 /* RepoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListViewModel.swift; sourceTree = "<group>"; };
 		7254490D24F16C7E00DAF07F /* RepoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoCell.swift; sourceTree = "<group>"; };
+		7254491024F5519800DAF07F /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,10 +152,8 @@
 				72322E4A24F12EEB0093B6D9 /* Extension */,
 				72322E4924F12ED50093B6D9 /* Model */,
 				7254490C24F16C5800DAF07F /* Cell */,
-				7253167B24EEB1D3003789A5 /* ProfileController.swift */,
-				725316AD24EFBF20003789A5 /* ProfileViewModel.swift */,
-				725316B124F01DEF003789A5 /* RepoListController.swift */,
-				725316B324F01F31003789A5 /* RepoListViewModel.swift */,
+				7254490F24F5516B00DAF07F /* ViewModel */,
+				7254491224F551B700DAF07F /* ViewController */,
 				7253167724EEB1D3003789A5 /* AppDelegate.swift */,
 				7253167924EEB1D3003789A5 /* SceneDelegate.swift */,
 				7253168024EEB1D7003789A5 /* Assets.xcassets */,
@@ -187,6 +187,25 @@
 				7254490D24F16C7E00DAF07F /* RepoCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		7254490F24F5516B00DAF07F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7254491024F5519800DAF07F /* ViewModelType.swift */,
+				725316AD24EFBF20003789A5 /* ProfileViewModel.swift */,
+				725316B324F01F31003789A5 /* RepoListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7254491224F551B700DAF07F /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7253167B24EEB1D3003789A5 /* ProfileController.swift */,
+				725316B124F01DEF003789A5 /* RepoListController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -327,6 +346,7 @@
 				725316B224F01DEF003789A5 /* RepoListController.swift in Sources */,
 				725316B024EFD36D003789A5 /* Box.swift in Sources */,
 				7253167A24EEB1D3003789A5 /* SceneDelegate.swift in Sources */,
+				7254491124F5519800DAF07F /* ViewModelType.swift in Sources */,
 				725316B424F01F31003789A5 /* RepoListViewModel.swift in Sources */,
 				7254490E24F16C7E00DAF07F /* RepoCell.swift in Sources */,
 				725316AE24EFBF20003789A5 /* ProfileViewModel.swift in Sources */,
