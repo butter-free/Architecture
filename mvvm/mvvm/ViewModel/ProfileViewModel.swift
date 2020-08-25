@@ -8,10 +8,6 @@
 
 import Foundation
 
-protocol ViewModelType {
-	func binding()
-}
-
 class ProfileViewModel: ViewModelType {
 	
 	var repoList: [Repo] = []
@@ -19,10 +15,7 @@ class ProfileViewModel: ViewModelType {
 	var userID: Box<String> = Box<String>("")
 	var avatarURL: Box<String> = Box<String>("")
 	
-	let networkService: NetworkService!
-	
-	init(networkService: NetworkService) {
-		self.networkService = networkService
+	init() {
 		binding()
 	}
 	
