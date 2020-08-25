@@ -133,32 +133,45 @@ class RepoCell: UITableViewCell {
 			hashTagImageView.image = UIImage(systemName: "number")?.withRenderingMode(.alwaysTemplate)
 		}
 		
+		commitLabel.text = updatedCommitText(repo.updatedDate)
+	}
+	
+	private func updatedCommitText(_ dateString: String) -> String {
+		
 		let dateFormatter = DateFormatter()
 		dateFormatter.locale = .current
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
 		
-		if let updateDate = dateFormatter.date(from:repo.updatedDate) {
+		let updateDate = dateFormatter.date(from: dateString)!
 			
-			var dateString = "Updated "
+		var dateString = "Updated "
 			
-			if let diff = Calendar.current.dateComponents([.hour], from: updateDate, to: Date()).hour, diff < 24 {
-				let formatter = RelativeDateTimeFormatter()
-				formatter.unitsStyle = .full
-				dateString += formatter.localizedString(for: updateDate, relativeTo: Date())
-			} else {
-				
-				dateString += "on "
-				
-				dateFormatter.dateFormat = "d"
-				dateString += dateFormatter.string(from: updateDate)
+		// within 24 hours
+		if let diff = Calendar.current.dateComponents([.hour], from: updateDate, to: Date()).hour, diff < 24 {
+			let formatter = RelativeDateTimeFormatter()
+			formatter.unitsStyle = .full
+			dateString += formatter.localizedString(for: updateDate, relativeTo: Date())
+		} else {
+			dateString += "on "
+			
+			dateFormatter.dateFormat = "d"
+			dateString += dateFormatter.string(from: updateDate)
+			
+			dateString += " "
+			
+			dateFormatter.dateFormat = "MMM"
+			dateString += dateFormatter.string(from: updateDate)
+			
+			// past this year
+			if let diff = Calendar.current.dateComponents([.year], from: updateDate, to: Date()).year, diff > 0 {
 				
 				dateString += " "
 				
-				dateFormatter.dateFormat = "MMM"
+				dateFormatter.dateFormat = "yyyy"
 				dateString += dateFormatter.string(from: updateDate)
 			}
-			
-			commitLabel.text = dateString
 		}
+		
+		return dateString
 	}
 }
