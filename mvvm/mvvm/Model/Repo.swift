@@ -17,6 +17,8 @@ struct Repo: Codable {
     let fork: Bool
     let url: String?
     let language: String?
+	
+	let updatedDate: String
 
     enum CodingKeys: String, CodingKey {
         case name
@@ -24,6 +26,7 @@ struct Repo: Codable {
         case htmlURL = "html_url"
         case description
         case fork, url, language
+		case updatedDate = "updated_at"
     }
 }
 

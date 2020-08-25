@@ -64,6 +64,17 @@ class RepoCell: UITableViewCell {
 		return label
 	}()
 	
+	lazy var commitLabel: UILabel = {
+		let label = UILabel()
+		label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		label.textColor = UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1.0)
+		label.textAlignment = .right
+		
+		label.translatesAutoresizingMaskIntoConstraints = false
+		
+		return label
+	}()
+	
 	override func prepareForReuse() {
 		super.prepareForReuse()
 		
@@ -92,6 +103,7 @@ class RepoCell: UITableViewCell {
 		
 		horizontalStackView.addArrangedSubview(hashTagImageView)
 		horizontalStackView.addArrangedSubview(languageLabel)
+		horizontalStackView.addArrangedSubview(commitLabel)
 		stackView.addArrangedSubview(horizontalStackView)
 		
 		self.addSubview(stackView)
@@ -119,6 +131,34 @@ class RepoCell: UITableViewCell {
 		if let language = repo.language {
 			languageLabel.text = language
 			hashTagImageView.image = UIImage(systemName: "number")?.withRenderingMode(.alwaysTemplate)
+		}
+		
+		let dateFormatter = DateFormatter()
+		dateFormatter.locale = .current
+		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+		
+		if let updateDate = dateFormatter.date(from:repo.updatedDate) {
+			
+			var dateString = "Updated "
+			
+			if let diff = Calendar.current.dateComponents([.hour], from: updateDate, to: Date()).hour, diff < 24 {
+				let formatter = RelativeDateTimeFormatter()
+				formatter.unitsStyle = .full
+				dateString += formatter.localizedString(for: updateDate, relativeTo: Date())
+			} else {
+				
+				dateString += "on "
+				
+				dateFormatter.dateFormat = "d"
+				dateString += dateFormatter.string(from: updateDate)
+				
+				dateString += " "
+				
+				dateFormatter.dateFormat = "MMM"
+				dateString += dateFormatter.string(from: updateDate)
+			}
+			
+			commitLabel.text = dateString
 		}
 	}
 }
