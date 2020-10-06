@@ -24,7 +24,7 @@ class NetworkManager: NetworkService {
 		
 		guard let url = URL(string: url) else { return }
 		
-		URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+		URLSession.shared.dataTask(with: url) { (data, response, error) in
 			
 			if let error = error {
 				result(.failure(error))
@@ -47,7 +47,6 @@ class NetworkManager: NetworkService {
 				result(.failure(error))
 			}
 			
-			
-		}).resume()
+		}.resume()
 	}
 }
