@@ -101,7 +101,7 @@ class ProfileController: UIViewController {
 		
 		view.endEditing(true)
 	}
-
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
@@ -146,7 +146,6 @@ class ProfileController: UIViewController {
 			submitButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: view.frame.height / 6),
 			submitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 22),
 			submitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22)
-			
 		])
 	}
 	
@@ -190,7 +189,7 @@ extension ProfileController: UITextFieldDelegate {
 	}
 	
 	func textFieldDidEndEditing(_ textField: UITextField) {
-
+		
 		guard let userID = textField.text else { return }
 		
 		if let _ = profileImageView.image {

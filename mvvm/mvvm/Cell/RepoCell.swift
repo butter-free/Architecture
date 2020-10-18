@@ -94,7 +94,7 @@ class RepoCell: UITableViewCell {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-
+	
 	func configureUI() {
 		self.accessoryType = .disclosureIndicator
 		
@@ -143,9 +143,9 @@ class RepoCell: UITableViewCell {
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
 		
 		let updateDate = dateFormatter.date(from: dateString)!
-			
+		
 		var dateString = "Updated "
-			
+		
 		// within 24 hours
 		if let diff = Calendar.current.dateComponents([.hour], from: updateDate, to: Date()).hour, diff < 24 {
 			let formatter = RelativeDateTimeFormatter()
