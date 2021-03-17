@@ -2,7 +2,7 @@
 //  mvvmUITests.swift
 //  mvvmUITests
 //
-//  Created by hy_sean on 2020/08/20.
+//  Created by sean on 2020/08/20.
 //  Copyright © 2020 siwon. All rights reserved.
 //
 
