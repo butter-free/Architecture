@@ -2,7 +2,7 @@
 //  Repo.swift
 //  mvvm
 //
-//  Created by hy_sean on 2020/08/21.
+//  Created by sean on 2020/08/21.
 //  Copyright © 2020 siwon. All rights reserved.
 //
 

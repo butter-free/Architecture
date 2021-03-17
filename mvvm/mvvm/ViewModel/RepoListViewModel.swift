@@ -2,7 +2,7 @@
 //  RepoListViewModel.swift
 //  mvvm
 //
-//  Created by hy_sean on 2020/08/22.
+//  Created by sean on 2020/08/22.
 //  Copyright © 2020 siwon. All rights reserved.
 //
 

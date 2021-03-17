@@ -2,7 +2,7 @@
 //  RepoCell.swift
 //  mvvm
 //
-//  Created by hy_sean on 2020/08/23.
+//  Created by sean on 2020/08/23.
 //  Copyright © 2020 siwon. All rights reserved.
 //
 
