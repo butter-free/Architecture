@@ -9,13 +9,8 @@
 import Foundation
 
 protocol ViewModelType {
-	func binding()
+	associatedtype Action
+	associatedtype State
 	
-	var networkService: NetworkService { get }
-}
-
-extension ViewModelType {
-	var networkService: NetworkService {
-		return NetworkManager.shared
-	}
+	func binding()
 }
