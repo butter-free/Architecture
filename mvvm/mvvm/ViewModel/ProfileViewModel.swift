@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ProfileViewModel: ViewModelType {
+final class ProfileViewModel: ViewModelType {
 	
 	var repoList: [Repo] = []
 	

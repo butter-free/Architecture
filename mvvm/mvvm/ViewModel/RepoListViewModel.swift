@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class RepoListViewModel: ViewModelType {
+final class RepoListViewModel: ViewModelType {
 	
 	let userID: String
 	let repoList: [Repo]!
