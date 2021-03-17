@@ -74,9 +74,13 @@ final class ProfileController: UIViewController {
 		button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
 		
 		button.translatesAutoresizingMaskIntoConstraints = false
-		
+		button.addTarget(self, action: #selector(didTapSubmitButton), for: .touchUpInside)
 		return button
 	}()
+	
+	@objc func didTapSubmitButton() {
+		viewModel.action.presentRepoList.value = ()
+	}
 	
 	var isSetupConfirmImage: Bool = false {
 		willSet {
@@ -150,9 +154,7 @@ final class ProfileController: UIViewController {
 	}
 	
 	func bindViewModel() {
-		submitButton.addTarget(self, action: #selector(didTapSubmitButton), for: .touchUpInside)
-		
-		viewModel.avatarURL
+		viewModel.state.avatarURL
 			.bind { [weak self] avatarURL in
 				DispatchQueue.main.async {
 					let isSuccessRetrieveURL = !avatarURL.isEmpty
@@ -167,35 +169,32 @@ final class ProfileController: UIViewController {
 					self?.isSetupConfirmImage = isSuccessRetrieveURL
 				}
 			}
-	}
-	
-	@objc func didTapSubmitButton() {
-		let repoListController = RepoListController(
-			viewModel: RepoListViewModel(userID: viewModel.userID.value, repoList: viewModel.repoList)
-		)
-		self.present(UINavigationController(rootViewController: repoListController), animated: true)
+		
+		viewModel.state.items
+			.bind { [weak self] items in
+				// In Main Thread.
+				let repoListController = RepoListController(
+					viewModel: RepoListViewModel(userID: items.userID, repoList: items.repoList)
+				)
+				self?.present(UINavigationController(rootViewController: repoListController), animated: true)
+			}
 	}
 }
 
 extension ProfileController: UITextFieldDelegate {
-	
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-		
 		guard let text = textField.text, !text.isEmpty else { return false }
-		
 		view.endEditing(true)
-		
 		return true
 	}
 	
 	func textFieldDidEndEditing(_ textField: UITextField) {
-		
 		guard let userID = textField.text else { return }
 		
 		if let _ = profileImageView.image {
 			self.profileImageView.image = nil
 		}
 		
-		viewModel.userID.value = userID
+		viewModel.action.inputUserID.value = userID
 	}
 }
