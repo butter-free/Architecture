@@ -96,7 +96,7 @@ class RepoCell: UITableViewCell {
 	}
 	
 	func configureUI() {
-		self.accessoryType = .disclosureIndicator
+		accessoryType = .disclosureIndicator
 		
 		stackView.addArrangedSubview(titleLabel)
 		stackView.addArrangedSubview(descriptionLabel)
@@ -106,16 +106,16 @@ class RepoCell: UITableViewCell {
 		horizontalStackView.addArrangedSubview(commitLabel)
 		stackView.addArrangedSubview(horizontalStackView)
 		
-		self.addSubview(stackView)
+		addSubview(stackView)
 		
 		NSLayoutConstraint.activate([
 			
 			titleLabel.heightAnchor.constraint(equalToConstant: titleLabel.font.lineHeight),
 			
-			stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-			stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-			stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -48),
-			stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
+			stackView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+			stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+			stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -48),
+			stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
 			
 			hashTagImageView.widthAnchor.constraint(equalTo: hashTagImageView.heightAnchor)
 		])
