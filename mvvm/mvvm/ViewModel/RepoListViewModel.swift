@@ -19,7 +19,5 @@ final class RepoListViewModel: ViewModelType {
 		self.repoList = repoList
 	}
 	
-	func binding() {
-		
-	}
+	func binding() {}
 }
