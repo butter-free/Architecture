@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-class RepoListController: UIViewController {
+final class RepoListController: UIViewController {
 	
 	lazy var tableView: UITableView = {
 		let tableView = UITableView()

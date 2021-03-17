@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileController: UIViewController {
+final class ProfileController: UIViewController {
 	
 	lazy var profileImageView: UIImageView = {
 		let imageView = UIImageView()
