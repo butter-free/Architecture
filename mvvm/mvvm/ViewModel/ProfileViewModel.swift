@@ -10,10 +10,25 @@ import Foundation
 
 final class ProfileViewModel: ViewModelType {
 	
-	var repoList: [Repo] = []
+	typealias ProfileItems = (userID: String, repoList: [Repo])
 	
-	var userID: Box<String> = Box<String>("")
-	var avatarURL: Box<String> = Box<String>("")
+	// Action
+	struct Action {
+		var presentRepoList = Box<Void>(())
+		var inputUserID = Box<String>("")
+	}
+	
+	// State
+	struct State {
+		var avatarURL = Box<String>("")
+		var items = Box<ProfileItems>(("", []))
+	}
+	
+	var action = Action()
+	var state = State()
+	
+	private var userID = ""
+	private var repoList: [Repo] = []
 	
 	init() {
 		binding()
@@ -21,16 +36,18 @@ final class ProfileViewModel: ViewModelType {
 	
 	func binding() {
 		
-		userID.bind { [weak self] id in
+		action.inputUserID.bind { [weak self] id in
 			
 			guard let `self` = self else { return }
 			
 			if id.isEmpty {
-				self.avatarURL.value = ""
+				self.state.avatarURL.value = ""
 				return
 			}
 			
-			self.networkService.request(
+			self.userID = id
+			
+			NetworkManager.shared.request(
 				url: "https://api.github.com/users/\(id)/repos"
 			) { (result: Result<[Repo], Error>) in
 				switch result {
@@ -39,16 +56,24 @@ final class ProfileViewModel: ViewModelType {
 					self.repoList = data.filter { !$0.fork }
 					
 					guard let avatarURL = data.first?.owner.avatarURL else {
-						self.avatarURL.value = ""
+						self.state.avatarURL.value = ""
 						return
 					}
 					
-					self.avatarURL.value = avatarURL
+					self.state.avatarURL.value = avatarURL
 				case let .failure(error):
-					self.avatarURL.value = ""
+					self.state.avatarURL.value = ""
 					print(error)
 				}
 			}
+		}
+		
+		action.presentRepoList.bind { [weak self] in
+			guard let `self` = self else {
+				fatalError("Unexpectedly found nil")
+			}
+			
+			self.state.items.value = (userID: self.userID, repoList: self.repoList)
 		}
 	}
 }

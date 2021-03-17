@@ -11,8 +11,16 @@ import UIKit
 
 final class RepoListViewModel: ViewModelType {
 	
+	struct Action {
+		
+	}
+	
+	struct State {
+		
+	}
+	
 	let userID: String
-	let repoList: [Repo]!
+	let repoList: [Repo]
 	
 	init(userID: String, repoList: [Repo]) {
 		self.userID = userID
