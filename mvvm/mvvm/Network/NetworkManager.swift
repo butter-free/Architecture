@@ -20,6 +20,8 @@ class NetworkManager: NetworkService {
 	
 	static let shared: NetworkManager = NetworkManager()
 	
+	private init() {}
+	
 	func request<T>(url: String, result: @escaping (Result<T, Error>) -> Void) where T : Decodable {
 		
 		guard let url = URL(string: url) else { return }
