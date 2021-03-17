@@ -112,14 +112,14 @@ final class ProfileController: UIViewController {
 	func configureUI() {
 		view.backgroundColor = .white
 		
-		self.view.addSubview(profileImageView)
+		view.addSubview(profileImageView)
 		
-		self.view.addSubview(textField)
+		view.addSubview(textField)
 		textField.addSubview(underLine)
 		
-		self.view.addSubview(confirmImageView)
+		view.addSubview(confirmImageView)
 		
-		self.view.addSubview(submitButton)
+		view.addSubview(submitButton)
 		
 		NSLayoutConstraint.activate([
 			profileImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height / 6),
@@ -152,21 +152,21 @@ final class ProfileController: UIViewController {
 	func bindViewModel() {
 		submitButton.addTarget(self, action: #selector(didTapSubmitButton), for: .touchUpInside)
 		
-		viewModel.avatarURL.bind { [weak self] avatarURL in
-			DispatchQueue.main.async {
-				
-				let isSuccessRetrieveURL = !avatarURL.isEmpty
-				
-				if isSuccessRetrieveURL {
-					self?.profileImageView.setupImage(from: avatarURL)
-				} else {
-					self?.profileImageView.image = nil
+		viewModel.avatarURL
+			.bind { [weak self] avatarURL in
+				DispatchQueue.main.async {
+					let isSuccessRetrieveURL = !avatarURL.isEmpty
+					
+					if isSuccessRetrieveURL {
+						self?.profileImageView.setupImage(from: avatarURL)
+					} else {
+						self?.profileImageView.image = nil
+					}
+					
+					self?.submitButton.isEnabled = isSuccessRetrieveURL
+					self?.isSetupConfirmImage = isSuccessRetrieveURL
 				}
-				
-				self?.submitButton.isEnabled = isSuccessRetrieveURL
-				self?.isSetupConfirmImage = isSuccessRetrieveURL
 			}
-		}
 	}
 	
 	@objc func didTapSubmitButton() {
