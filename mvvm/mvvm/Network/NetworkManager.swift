@@ -48,7 +48,6 @@ class NetworkManager: NetworkService {
 			} catch let error {
 				result(.failure(error))
 			}
-			
 		}.resume()
 	}
 }
