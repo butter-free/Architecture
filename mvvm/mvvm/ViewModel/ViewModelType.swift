@@ -11,6 +11,4 @@ import Foundation
 protocol ViewModelType {
 	associatedtype Action
 	associatedtype State
-	
-	func binding()
 }
