@@ -174,7 +174,8 @@ final class ProfileController: UIViewController {
 			.bind { [weak self] items in
 				// In Main Thread.
 				let repoListController = RepoListController(
-					viewModel: RepoListViewModel(userID: items.userID, repoList: items.repoList)
+					userID: items.userID,
+					repoList: items.repoList
 				)
 				self?.present(UINavigationController(rootViewController: repoListController), animated: true)
 			}

@@ -23,10 +23,12 @@ final class RepoListController: UIViewController {
 		return tableView
 	}()
 	
-	let viewModel: RepoListViewModel!
+	private let userID: String
+	private let repoList: [Repo]
 	
-	init(viewModel: RepoListViewModel) {
-		self.viewModel = viewModel
+	init(userID: String, repoList: [Repo]) {
+		self.userID = userID
+		self.repoList = repoList
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -43,7 +45,7 @@ final class RepoListController: UIViewController {
 	func configureUI() {
 		view.backgroundColor = .white
 		
-		navigationItem.title = "\(viewModel.userID)'s repositories"
+		navigationItem.title = "\(userID)'s repositories"
 		
 		view.addSubview(tableView)
 		
@@ -58,19 +60,19 @@ final class RepoListController: UIViewController {
 
 extension RepoListController: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return viewModel.repoList.count
+		return repoList.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: RepoCell.identifier, for: indexPath) as! RepoCell
-		cell.configure(repo: viewModel.repoList[indexPath.row])
+		cell.configure(repo: repoList[indexPath.row])
 		return cell
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: false)
 		
-		let htmlURL = viewModel.repoList[indexPath.row].htmlURL ?? ""
+		let htmlURL = repoList[indexPath.row].htmlURL ?? ""
 		print(htmlURL)
 		
 		guard let url = URL(string: htmlURL) else { return }
