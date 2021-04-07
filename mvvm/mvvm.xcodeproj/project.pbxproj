@@ -20,9 +20,9 @@
 		725316AE24EFBF20003789A5 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725316AD24EFBF20003789A5 /* ProfileViewModel.swift */; };
 		725316B024EFD36D003789A5 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725316AF24EFD36D003789A5 /* Box.swift */; };
 		725316B224F01DEF003789A5 /* RepoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725316B124F01DEF003789A5 /* RepoListController.swift */; };
-		725316B424F01F31003789A5 /* RepoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725316B324F01F31003789A5 /* RepoListViewModel.swift */; };
 		7254490E24F16C7E00DAF07F /* RepoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7254490D24F16C7E00DAF07F /* RepoCell.swift */; };
 		7254491124F5519800DAF07F /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7254491024F5519800DAF07F /* ViewModelType.swift */; };
+		72997601261DF1B300837897 /* ReposRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72997600261DF1B300837897 /* ReposRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,9 +62,9 @@
 		725316AD24EFBF20003789A5 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		725316AF24EFD36D003789A5 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		725316B124F01DEF003789A5 /* RepoListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListController.swift; sourceTree = "<group>"; };
-		725316B324F01F31003789A5 /* RepoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListViewModel.swift; sourceTree = "<group>"; };
 		7254490D24F16C7E00DAF07F /* RepoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoCell.swift; sourceTree = "<group>"; };
 		7254491024F5519800DAF07F /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		72997600261DF1B300837897 /* ReposRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +95,8 @@
 		72322E4924F12ED50093B6D9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				725316A924EFB801003789A5 /* Repo.swift */,
+				729975FF261DF17A00837897 /* Repository */,
+				729975F5261DF0AF00837897 /* Entity */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -194,7 +195,6 @@
 			children = (
 				7254491024F5519800DAF07F /* ViewModelType.swift */,
 				725316AD24EFBF20003789A5 /* ProfileViewModel.swift */,
-				725316B324F01F31003789A5 /* RepoListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -206,6 +206,22 @@
 				725316B124F01DEF003789A5 /* RepoListController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		729975F5261DF0AF00837897 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				725316A924EFB801003789A5 /* Repo.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		729975FF261DF17A00837897 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				72997600261DF1B300837897 /* ReposRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,7 +287,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = siwon;
 				TargetAttributes = {
 					7253167324EEB1D3003789A5 = {
@@ -339,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				725316AC24EFBD57003789A5 /* UIImageView+Extension.swift in Sources */,
+				72997601261DF1B300837897 /* ReposRepository.swift in Sources */,
 				7253167C24EEB1D3003789A5 /* ProfileController.swift in Sources */,
 				725316A824EEEA36003789A5 /* NetworkManager.swift in Sources */,
 				725316AA24EFB801003789A5 /* Repo.swift in Sources */,
@@ -347,7 +364,6 @@
 				725316B024EFD36D003789A5 /* Box.swift in Sources */,
 				7253167A24EEB1D3003789A5 /* SceneDelegate.swift in Sources */,
 				7254491124F5519800DAF07F /* ViewModelType.swift in Sources */,
-				725316B424F01F31003789A5 /* RepoListViewModel.swift in Sources */,
 				7254490E24F16C7E00DAF07F /* RepoCell.swift in Sources */,
 				725316AE24EFBF20003789A5 /* ProfileViewModel.swift in Sources */,
 			);
@@ -422,6 +438,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -483,6 +500,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
